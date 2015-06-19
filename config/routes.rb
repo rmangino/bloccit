@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+
   root to: 'welcome#index'
 
-  get 'welcome/index'
-  get 'welcome/about'
-  get 'welcome/contact'
+  resources :posts
+  # shorter way of stating CRUD routes:
+  #   get 'posts/index'
+  #   get 'posts/show'
+  #   get 'posts/new'
+  #   get 'posts/edit'
+
+  get 'about' => 'welcome#about'
   
 end
