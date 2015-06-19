@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   #   get 'posts/new'
   #   get 'posts/edit'
 
+  resources :advertisements
+  # get 'advertisements/index'
+  # get 'advertisements/show'
+
   get 'about' => 'welcome#about'
   
 end
