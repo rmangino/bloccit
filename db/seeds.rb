@@ -73,9 +73,25 @@ create_unique_entity_in(Advertisement, advert_data, :title)
 
 ###############################################################################
 
+# Create Questions
+
+20.times do
+  Question.create!(title: Faker::Lorem.sentence, 
+                   body:  Faker::Lorem.paragraph, 
+                   resolved: [true, false].sample)
+end
+
+# Create a unique question
+
+question_data = { title: "A unique question title", 
+                  body:  "A unique question body",
+                  resolved: false }
+create_unique_entity_in(Question, question_data, :title)
+
 # Report results
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisments created"
+puts "#{Question.count} questions created"
