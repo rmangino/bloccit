@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root to: 'welcome#index'
 
+  devise_for :users
+
   resources :posts, :advertisements, :questions
   # equivalent to:
   #   get  'posts/index'
