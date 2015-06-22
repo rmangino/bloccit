@@ -19,7 +19,7 @@ require 'faker'
 # options_hash[find_by_symbol]. 
 def create_unique_entity_in(model_class, options_hash, find_by_symbol)
   unique_item = model_class.new(options_hash)
-  puts find_by_symbol => unique_item[find_by_symbol]
+  #qputs find_by_symbol => unique_item[find_by_symbol]
   item        = model_class.find_by(find_by_symbol => unique_item[find_by_symbol])
 
   if !item
@@ -35,20 +35,44 @@ end
 
 ###############################################################################
 
+# Create Users
+5.times do
+  user = User.new(name:     Faker::Name.name,
+                  email:    Faker::Internet.email,
+                  password: Faker::Lorem.characters(10))
+  user.skip_confirmation!
+  user.save!
+end
+
+# Create a unique user
+user = User.new(name: "Reed", email: "reed@themanginos.com", password: "helloworld")
+user.skip_confirmation!
+user.save!
+
+users = User.all
+
+###############################################################################
+
 # Create Posts
 50.times do
-  Post.create!(title:  Faker::Lorem.sentence, body: Faker::Lorem.paragraph)
+  Post.create!(user:  users.sample, 
+               title: Faker::Lorem.sentence,
+               body:  Faker::Lorem.paragraph)
 end
 
 # Create a unique post
-post_data = { title:  "A unique post title", body: "A unique post body" }
-post = create_unique_entity_in(Post, post_data, :title)
+post = Post.create!(user:  user,
+                    title: "A unique post title", 
+                    body:  "A unique post body" )
+post.save!
 
 ###############################################################################
 
 # Create Comments
 100.times do
-  Comment.create!(post: Post.all.sample, body: Faker::Lorem.paragraph)
+  Comment.create!(# user: users.sample,   # we have not yet associated Users with Comments
+                  post: Post.all.sample, 
+                  body: Faker::Lorem.paragraph)
 end
 
 # Create a unique comment on post
@@ -91,6 +115,7 @@ create_unique_entity_in(Question, question_data, :title)
 # Report results
 
 puts "Seed finished"
+puts "#{User.count} users created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisments created"
