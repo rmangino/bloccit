@@ -12,7 +12,7 @@
         <%= f.email_field :email, class: 'form-control', placeholder: "Enter email" %>
       </div>
 
-      <% if devise.mapping.confirmable? && resource.pending_reconfirmation? %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div class="form-group">
           <p>Waiting confirmation for:</p>
           <%= resource.unconfirmed_email %>    
