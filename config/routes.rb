@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   # Nested resources
   # example url: /topics/1/posts/3
   resources :topics do
-    resources :posts, except: [:index]
+    resources :posts, except: [:index] do
+      resources :summaries, except: [:index]
+    end
   end
 
   # map /about to WelcomeController.about

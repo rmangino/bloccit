@@ -42,6 +42,7 @@ end
 ###############################################################################
 
 # Create Users
+
 admin     = create_user('Admin User', 'admin@example.com', 'helloworld', 'admin')
 moderator = create_user('Moderator User', 'moderator@example.com', 'helloworld', 'moderator')
 member    = create_user('Member User', 'member@example.com', 'helloworld', 'member')
@@ -51,6 +52,7 @@ users = User.all
 ###############################################################################
 
 # Create Topics
+
 15.times do
   Topic.create!(name:        Faker::Lorem.sentence,
                 description: Faker::Lorem.paragraph)
@@ -61,22 +63,35 @@ topics = Topic.all
 ###############################################################################
 
 # Create Posts
+
 50.times do
   Post.create!(user:  users.sample, 
                title: Faker::Lorem.sentence,
-               body:  Faker::Lorem.paragraph)
+               body:  Faker::Lorem.paragraph,
+               topic: topics.sample)
 end
 
 # Create a unique post
+
 post = Post.create!(user:  users.sample,
-                    topic: topics.sample,
+                    topic: topics.first,
                     title: "A unique post title", 
                     body:  "A unique post body" )
 post.save!
 
 ###############################################################################
 
+# Create Summaries
+
+15.times do
+  Summary.create!(description: Faker::Lorem.sentence,
+                  post:        Post.all.sample)
+end
+
+###############################################################################
+
 # Create Comments
+
 100.times do
   Comment.create!(# user: users.sample,   # we have not yet associated Users with Comments
                   post: Post.all.sample, 
@@ -126,6 +141,7 @@ puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
+puts "#{Summary.count} summaries created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisments created"
 puts "#{Question.count} questions created"
