@@ -4,19 +4,14 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :posts
   resources :advertisements
   resources :questions
-  resources :topics
-  # Equivalent to:
-  #                        GET    /topics(.:format)                  topics#index
-  #                        POST   /topics(.:format)                  topics#create
-  #              new_topic GET    /topics/new(.:format)              topics#new
-  #             edit_topic GET    /topics/:id/edit(.:format)         topics#edit
-  #                  topic GET    /topics/:id(.:format)              topics#show
-  #                        PATCH  /topics/:id(.:format)              topics#update
-  #                        PUT    /topics/:id(.:format)              topics#update
-  #                        DELETE /topics/:id(.:format)              topics#destroy
+
+  # Nested resources
+  # example url: /topics/1/posts/3
+  resources :topics do
+    resources :posts, except: [:index]
+  end
 
   # map /about to WelcomeController.about
   get 'about' => 'welcome#about'
