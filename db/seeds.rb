@@ -33,23 +33,30 @@ def create_unique_entity_in(model_class, options_hash, find_by_symbol)
   item
 end
 
-###############################################################################
-
-# Create Users
-5.times do
-  user = User.new(name:     Faker::Name.name,
-                  email:    Faker::Internet.email,
-                  password: Faker::Lorem.characters(10))
+def create_user(name, email, password, role)
+  user = User.new(name: name, email: email, password: password, role: role)
   user.skip_confirmation!
   user.save!
 end
 
-# Create a unique user
-user = User.new(name: "Reed", email: "reed@themanginos.com", password: "helloworld")
-user.skip_confirmation!
-user.save!
+###############################################################################
+
+# Create Users
+admin     = create_user('Admin User', 'admin@example.com', 'helloworld', 'admin')
+moderator = create_user('Moderator User', 'moderator@example.com', 'helloworld', 'moderator')
+member    = create_user('Member User', 'member@example.com', 'helloworld', 'member')
 
 users = User.all
+
+###############################################################################
+
+# Create Topics
+15.times do
+  Topic.create!(name:        Faker::Lorem.sentence,
+                description: Faker::Lorem.paragraph)
+end
+
+topics = Topic.all
 
 ###############################################################################
 
@@ -61,7 +68,8 @@ users = User.all
 end
 
 # Create a unique post
-post = Post.create!(user:  user,
+post = Post.create!(user:  users.sample,
+                    topic: topics.sample,
                     title: "A unique post title", 
                     body:  "A unique post body" )
 post.save!
@@ -116,6 +124,7 @@ create_unique_entity_in(Question, question_data, :title)
 
 puts "Seed finished"
 puts "#{User.count} users created"
+puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisments created"
