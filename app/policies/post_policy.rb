@@ -11,7 +11,7 @@ class PostPolicy < ApplicationPolicy
       elsif user.member?
         scope.where(user_id: user.id)
       else
-        [] # Any other roles see nothing
+        scope.none # Any other roles see nothing
       end
     end
   end
