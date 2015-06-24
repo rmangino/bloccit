@@ -4,7 +4,7 @@
   <div class="col-md-8">
     <p><%= @post.body %></p>
     <% if @post.summary %>
-      <%= link_to "Summary: " + @post.summary.description, topic_post_summary_path(@topic, @post, @post.summary) %>
+      <%= link_to "Summary: #{@post.summary.description}", topic_post_summary_path(@topic, @post, @post.summary) %>
     <% end %>
   </div>
   <div class="col-md-4">
