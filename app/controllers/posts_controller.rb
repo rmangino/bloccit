@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :find_topic
-
+  before_action :post_params, except: [:create, :new]
+ 
   # Not needed because Post resources are nested within Topic resources. Posts
   # are displayed wrt a Topic.
   # def index
@@ -9,18 +9,20 @@ class PostsController < ApplicationController
   # end
 
   def show
-    @post  = Post.find(params[:id])
+    # Nothing to see here...
   end
 
   # Create an empty post
   def new
     @post = Post.new
+    @post.summary = Summary.new
+    find_topic
     authorize @post
   end
 
   # Try to save a new post
   def create
-    @post = current_user.posts.build(params.require(:post).permit(:title, :body))
+    @post = current_user.posts.build(strong_params)
     @post.topic = @topic
     authorize @post
     if @post.save
@@ -33,14 +35,12 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
     authorize @post
   end
 
   def update
-    @post = Post.find(params[:id])
     authorize @post
-    if @post.update_attributes(params.require(:post).permit(:title, :body))
+    if @post.update_attributes(strong_params)
       flash[:notice] = "Post was updated."
       redirect_to [@topic, @post]
     else
@@ -50,6 +50,14 @@ class PostsController < ApplicationController
   end
 
 private
+
+  def strong_params
+    params.require(:post).permit(:title, :body, summary_attributes: [:id, :description])
+  end
+
+  def post_params
+    @post  = Post.find(params[:id])
+  end
 
   def find_topic
     @topic = Topic.find(params[:topic_id])

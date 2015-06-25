@@ -1,6 +1,6 @@
 class SummariesController < ApplicationController
   before_action :find_summary, except: [:new, :create]
-  before_action :find_post_and_topic
+  before_action :find_post
 
   def show
     # nothing to see here...
@@ -8,6 +8,7 @@ class SummariesController < ApplicationController
 
   def new
     @summary = Summary.new
+    @summary.post = @post
   end
 
   def create
@@ -27,7 +28,7 @@ class SummariesController < ApplicationController
   end
 
   def update
-    if @summary.update_attributes(strong_params)
+    if @summary.update_attributes!(strong_params)
       flash[:notice] = "Summary was updated."
       redirect_to [@topic, @post, @summary]
     else
@@ -42,15 +43,15 @@ class SummariesController < ApplicationController
 private
 
   def find_summary
+    # @summary = Summary.find(params[:post_id])
     @summary = Summary.find(params[:id])
   end  
 
-  def find_post_and_topic
+  def find_post
     @post  = Post.find(params[:post_id])
-    @topic = Topic.find(params[:topic_id])
   end  
 
   def strong_params
-    params.require(:summary).permit(:description, :topic_id, :post_id)
+    params.require(:summary).permit(:description)
   end
 end

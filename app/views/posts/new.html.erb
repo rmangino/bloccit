@@ -10,16 +10,22 @@
   </div>
 
   <div class="col-md-8">
-    <%= form_for [@topic, @post] do |f| %>
+    <%= form_for [@topic, @post], builder: ApplicationHelper::LabellingFormBuilder do |f| %>
       <div class="form-group">
-        <%= f.label :title %>
         <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :body %>
+        <%= f.label "Body" %>
         <%= f.text_area :body, class: 'form-control', placeholder: "Enter post body" %>
       </div>
+
+      <%= f.fields_for :summary do |summary_form| %>
+        <div class="form-group">
+          <%= summary_form.label "Summary" %>
+          <%= summary_form.text_area :description, class: 'form-control', placeholder: "Enter post summary" %>
+        </div>
+      <% end %>
 
       <div class="form-group">  
         <%= f.submit "Save", class: 'btn btn-success' %>

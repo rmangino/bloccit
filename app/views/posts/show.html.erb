@@ -1,15 +1,19 @@
-<h1><%= @post.title %></h1>
+<h1><%= "id:#{@post.id} - #{@post.title}" %></h1>
 
 <div class="row">
-  <div class="col-md-8">
-    <p><%= @post.body %></p>
-    <% if @post.summary %>
-      <%= link_to "Summary: #{@post.summary.description}", topic_post_summary_path(@topic, @post, @post.summary) %>
-    <% end %>
-  </div>
-  <div class="col-md-4">
-    <% if policy(@post).edit? %>
-      <%= link_to "Edit", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
-    <% end %>
+  <div class="col-md-12">
+  <p><%= @post.body %></p>
+
+  <% if policy(@post).edit? %>
+    <%= link_to "Edit", edit_post_path(@post), class: 'btn btn-success' %>
+  <% end %>
+
+  <% if @post.summary %>
+    
+    <%= link_to "Summary(id:#{@post.summary.id}): #{@post.summary.description}", post_summary_path(@post, @post.summary) %>
+  <% else %>
+    <hr>
+    <%= link_to "Create Summary", new_post_summary_path(@post), class: 'btn btn-success' %>
+  <% end %>
   </div>
 </div>
