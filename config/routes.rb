@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # Nested resources
   # example url: /topics/1/posts/3
   #
-  # Because :posts set 'shallow: true' we can get:
+  # Because :posts is set to 'shallow: true' we can get:
   #    post_summary       POST   /posts/:post_id/summary(.:format)                  summaries#create
   # instead of:
   #    topic_post_summary POST   /topics/:topic_id/posts/:post_id/summary(.:format) summaries#create

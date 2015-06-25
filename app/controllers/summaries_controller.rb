@@ -1,9 +1,8 @@
 class SummariesController < ApplicationController
-  before_action :find_summary, except: [:new, :create]
   before_action :find_post
 
   def show
-    # nothing to see here...
+    @summary = @post.summary
   end
 
   def new
@@ -24,10 +23,11 @@ class SummariesController < ApplicationController
   end
 
   def edit
-    # nothing to see here...
+    @summary = @post.summary
   end
 
   def update
+    @summary = @post.summary
     if @summary.update_attributes!(strong_params)
       flash[:notice] = "Summary was updated."
       redirect_to [@topic, @post, @summary]
@@ -43,7 +43,6 @@ class SummariesController < ApplicationController
 private
 
   def find_summary
-    # @summary = Summary.find(params[:post_id])
     @summary = Summary.find(params[:id])
   end  
 

@@ -10,7 +10,7 @@
 
   <% if @post.summary %>
     
-    <%= link_to "Summary(id:#{@post.summary.id}): #{@post.summary.description}", post_summary_path(@post, @post.summary) %>
+    <%= link_to "Summary(id:#{@post.summary.id}): #{@post.summary.description}", post_summary_path(@post) %>
   <% else %>
     <hr>
     <%= link_to "Create Summary", new_post_summary_path(@post), class: 'btn btn-success' %>
