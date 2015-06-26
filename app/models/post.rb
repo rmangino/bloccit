@@ -1,7 +1,9 @@
 class Post < ActiveRecord::Base
+  include ModelHelper
   has_many :comments
   belongs_to :user
   belongs_to :topic
+  after_initialize { add_markdown_to_html_methods_for_class_attributes(Post, [:title, :body]) }
 
   # Always grab the newest posts first
   default_scope { order('created_at DESC') }
