@@ -20,6 +20,19 @@
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter post body" %>
   <% end %>
 
+  <% if post.post_image? %>
+    <div class="form-group">
+      <p>Current image</p>
+      <%= image_tag( post.post_image.normal.url ) %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :post_image %>
+    <%= f.file_field :post_image %>
+    <%= f.hidden_field :post_image_cache %>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-success' %>
   </div>

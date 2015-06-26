@@ -3,6 +3,10 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
 
+  # From the CarrierWave gem
+  attr_accessor :post_image_cache
+  mount_uploader :post_image, PostImageUploader
+
   # Always grab the newest posts first
   default_scope { order('created_at DESC') }
 
