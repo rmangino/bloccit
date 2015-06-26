@@ -8,6 +8,15 @@ module ApplicationHelper
     end
   end
 
+  # Convert a string containing markdown into its HTML equivalent.
+  # WARNING: possibly insecure
+  def markdown_to_html(markdown)
+    renderer = Redcarpet::Render::HTML.new
+    extensions = { fenced_code_blocks: true }
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
+    (redcarpet.render markdown).html_safe
+  end
+
   def my_name
     "Reed Mangino"
   end
