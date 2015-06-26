@@ -32,6 +32,13 @@ gem 'pundit'
 
 gem 'redcarpet'
 
+# Image uploading and resizing
+gem 'carrierwave'
+gem 'mini_magick'
+
+# "cloud services library" - for using AWS to store avatar images
+gem 'fog'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

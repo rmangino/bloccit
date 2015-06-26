@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessor :avatar_cache
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -6,6 +7,8 @@ class User < ActiveRecord::Base
          :confirmable
 
   has_many :posts
+  # From the CarrierWave gem
+  mount_uploader :avatar, AvatarUploader
 
   def admin?
     role == 'admin'
