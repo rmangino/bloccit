@@ -1,4 +1,4 @@
-<h1>New Topic</h1>
+<h1>New Topicsdfsdf </h1>
 
 <div class="row">
 
@@ -12,26 +12,7 @@
   </div>
 
   <div class="col-md-8">
-    <%= form_for @topic do |f| %>
-
-      <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control', placeholder: "Enter topic name" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :description %>
-        <%= f.text_field :description, class: 'form-control', placeholder: "Enter description" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :public, class: 'checkbox' %>
-        <%= f.check_box :public %> Public topic
-      </div>
-
-      <%= f.submit "Save", class: 'btn btn-success' %>
-
-    <% end %>
+    <%= render partial: 'form', locals: { topic: @topic } %>
   </div>
 
 </div>
