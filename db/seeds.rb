@@ -51,7 +51,7 @@ users = User.all
 ###############################################################################
 
 # Create Topics
-15.times do
+300.times do
   Topic.create!(name:        Faker::Lorem.sentence,
                 description: Faker::Lorem.paragraph)
 end
@@ -61,18 +61,27 @@ topics = Topic.all
 ###############################################################################
 
 # Create Posts
-50.times do
+200.times do
   Post.create!(user:  users.sample, 
                title: Faker::Lorem.sentence,
-               body:  Faker::Lorem.paragraph)
+               body:  Faker::Lorem.paragraph,
+               topic: topics.sample)
 end
 
 # Create a unique post
 post = Post.create!(user:  users.sample,
                     topic: topics.sample,
                     title: "A unique post title", 
-                    body:  "A unique post body" )
+                    body:  "A unique post body. A unique post body. A unique post body." )
 post.save!
+
+# For ease of testing create a bunch of posts on the first topic
+200.times do
+  Post.create!(user:  users.sample, 
+               title: Faker::Lorem.sentence,
+               body:  Faker::Lorem.paragraph,
+               topic: topics.first)
+end  
 
 ###############################################################################
 
