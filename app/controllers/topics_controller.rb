@@ -2,13 +2,14 @@ class TopicsController < ApplicationController
   before_action :find_topic, only: [:show, :update, :edit, :destroy]
 
   def index
-    @topics = Topic.all
+    @topics = Topic.paginate(page: params[:page], per_page: 10)
     authorize @topics
   end
 
   def show
     authorize @topic
-    @posts = @topic.posts # We'll display the posts associated with this topic
+    # We'll display the posts associated with this topic
+    @posts = @topic.posts.paginate(page: params[:page], per_page: 10) 
   end
 
   def new

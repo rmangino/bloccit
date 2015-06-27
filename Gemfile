@@ -39,6 +39,8 @@ gem 'mini_magick'
 # "cloud services library" - for using AWS to store avatar images
 gem 'fog'
 
+gem 'will_paginate', '~> 3.0.5'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
