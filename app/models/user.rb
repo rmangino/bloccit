@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
          :confirmable
 
   has_many :posts
+  has_many :comments
+  
   # From the CarrierWave gem
   mount_uploader :avatar, AvatarUploader
 
