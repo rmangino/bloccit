@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
   # Try to save a new comment
   def create
-    find_topic_and_post
+    find_post
     @comments = @post.comments
 
     @comment = current_user.comments.build(comment_params)
@@ -16,11 +16,11 @@ class CommentsController < ApplicationController
       flash[:error] = "There was an error saving the comment. Please try again."
     end
 
-    redirect_to [@topic, @post]
+    redirect_to [@post.topic, @post]
   end
 
   def destroy
-    find_topic_and_post
+    find_post
     @comment = @post.comments.find(params[:id])
 
     authorize @comment
@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
       flash[:error] = "Comment couldn't be deleted"
     end
     
-    redirect_to [@topic, @post]
+    redirect_to [@post.topic, @post]
   end
 
 private
@@ -39,13 +39,8 @@ private
     params.require(:comment).permit(:body)
   end  
 
-  def find_topic
-    @topic = Topic.find(params[:topic_id])
-  end
-
-  def find_topic_and_post
-    find_topic
-    @post = @topic.posts.find(params[:post_id])
+  def find_post
+    @post = Post.find(params[:post_id])
   end
 
 end
