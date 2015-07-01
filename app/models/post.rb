@@ -5,8 +5,6 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
 
-  after_create :create_vote
-
   # From the CarrierWave gem
   attr_accessor :post_image_cache
   mount_uploader :post_image, PostImageUploader
@@ -17,8 +15,8 @@ class Post < ActiveRecord::Base
   # Validations
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20}, presence: true
-  # validates :topic, presence: true
-  # validates :user, presence: true
+  validates :topic, presence: true
+  validates :user, presence: true
 
   def up_votes
     votes.where(value: 1).count
@@ -38,10 +36,7 @@ class Post < ActiveRecord::Base
 
     update_attribute(:rank, new_rank)
   end
-
-private
   
-  # Automatically upvote a new post after it is created.
   def create_vote
     user.votes.create(post: self, value: 1)    
   end  

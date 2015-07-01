@@ -1,22 +1,21 @@
 require 'rails_helper'
 
 describe Post do
+
+  include TestFactories
+  
   describe "vote methods" do
 
     before do
-      user  = User.create(name: "Tom", email: "test@example.com", password: "testtest")
-      topic = Topic.create(name: "topic name", description: "topic description " * 3)
-      @post = Post.create(title: "post title", body: "post body" * 5,
-                          user: user, topic: topic)
+      @post = associated_post
 
-      # Note: a post is automatically upvoted once when it is created
       3.times { @post.votes.create(value:  1) }
       2.times { @post.votes.create(value: -1) }
     end
 
     describe "#up_votes" do
       it "counts the number of votes with value = 1" do
-        expect( @post.up_votes ).to eq(3 + 1)
+        expect( @post.up_votes ).to eq(3)
       end
     end
 
@@ -28,9 +27,20 @@ describe Post do
 
     describe "#points" do
       it "returns the sum of all up and down votes" do
-        expect( @post.points ).to eq(2) # 4 - 2
+        expect( @post.points ).to eq(1) # 3 - 2
       end
     end
-  end
+  
+    describe "#create_vote" do
+      it "generates an upvote when explicitly called" do
+        post = associated_post
+        expect( post.up_votes ).to eq(0)
 
-end
+        post.create_vote
+        expect( post.up_votes ).to eq(1)
+      end
+    end
+    
+  end # "vote methods" 
+
+end # describe Post

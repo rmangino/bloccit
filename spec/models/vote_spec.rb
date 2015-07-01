@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 describe Vote do
+
+  include TestFactories
   
   describe "validations" do
-    
+
     describe "value validations" do
       it "only allow -1 or 1 as values" do
         user  = User.create(name: "Tom", email: "test@example.com", password: "testtest")
@@ -19,11 +21,22 @@ describe Vote do
             expect(vote.valid?).to eq(false)
           end
         end
-
       end  
-
     end
 
-  end
+    describe "after_save" do
+      it "calls `Post#update_rank` after save" do
+        post = associated_post
+        vote = Vote.new(value: 1, post: post)
 
-end
+        expect( post ).to receive(:update_rank)
+
+        # trigger the call to update_rank. this *has* to happen after we
+        # set the expectation.
+        vote.save
+      end
+    end
+
+  end # describe "validations"
+
+end # describe Vote
