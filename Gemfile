@@ -69,6 +69,8 @@ group :development, :test do
   # gem 'better_errors'
 
   gem 'rspec-rails', '~> 3.0'
+
+  gem 'awesome_print'
 end
 
 group :production do
