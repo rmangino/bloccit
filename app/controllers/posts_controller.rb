@@ -12,6 +12,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments
     @comment = Comment.new
+
+    # We shouldn't be able to view the post of a possibly private topic unless
+    # the user is logged in.
+    authorize @topic
   end
 
   # Create an empty post
