@@ -17,6 +17,16 @@ module ApplicationHelper
     (redcarpet.render markdown).html_safe
   end
 
+  def up_vote_link_classes(user, post)
+    upvoted = (user.voted(post) && user.voted(post).up_vote?)
+    upvoted ? 'voted' : ''
+  end
+
+  def down_vote_link_classes(user, post)
+    upvoted = (user.voted(post) && user.voted(post).down_vote?)
+    upvoted ? 'voted' : ''
+  end
+
   def my_name
     "Reed Mangino"
   end

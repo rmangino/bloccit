@@ -2,14 +2,14 @@
   <div class="vote-arrows pull-left">
     <div>
       <%= link_to " ", post_up_vote_path(post), method: :post,
-        class: "glyphicon glyphicon-chevron-up #{(current_user.voted(post) && current_user.voted(post).up_vote?) ? 'voted' : '' }" %>
+        class: "glyphicon glyphicon-chevron-up #{ up_vote_link_classes(current_user, post) }" %>
     </div>
     <div>
       <strong><%= post.points %></strong>
     </div>
     <div>
       <%= link_to " ", post_down_vote_path(post), method: :post,
-        class: "glyphicon glyphicon-chevron-down #{(current_user.voted(post) && current_user.voted(post).down_vote?) ? 'voted' : '' }" %>
+        class: "glyphicon glyphicon-chevron-down #{ down_vote_link_classes(current_user, post) }" %>
     </div>
   </div>
 <% end %>
