@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  
+
   # From the CarrierWave gem
   mount_uploader :avatar, AvatarUploader
 
@@ -30,4 +30,10 @@ class User < ActiveRecord::Base
   def favorited(post)
     favorites.where(post_id: post.id).first
   end
+
+  # Returns the vote if we voted on post, nil otherwise
+  def voted(post)
+    votes.find_by_post_id(post.id)
+  end
+
 end

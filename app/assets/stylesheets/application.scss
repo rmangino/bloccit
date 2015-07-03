@@ -16,13 +16,13 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
- 
+
  .user-info {
-   margin-top: 9px; 
+   margin-top: 9px;
  }
 
  .nav {
-   margin-top: 5px; 
+   margin-top: 5px;
  }
 
 .vote-arrows {
@@ -32,4 +32,8 @@
 
 .favorite {
   margin-top: 15px;
+}
+
+.voted {
+  opacity: 0.5;
 }
