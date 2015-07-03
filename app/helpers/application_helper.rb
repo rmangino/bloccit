@@ -23,8 +23,8 @@ module ApplicationHelper
   end
 
   def down_vote_link_classes(user, post)
-    upvoted = (user.voted(post) && user.voted(post).down_vote?)
-    upvoted ? 'voted' : ''
+    downvoted = (user.voted(post) && user.voted(post).down_vote?)
+    downvoted ? 'voted' : ''
   end
 
   def my_name
