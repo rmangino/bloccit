@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   devise_for :users
-  resources :users, only: [:update]
+  resources :users, only: [:show, :update]
 
   resources :advertisements
   resources :questions
@@ -24,5 +24,5 @@ Rails.application.routes.draw do
 
   # map /about to WelcomeController.about
   get 'about' => 'welcome#about'
-  
+
 end
