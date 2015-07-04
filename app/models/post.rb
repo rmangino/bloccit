@@ -13,6 +13,9 @@ class Post < ActiveRecord::Base
   # Always grab the posts in rank order. See update_rank()
   default_scope { order('rank DESC') }
 
+  # returns all posts whose topics are visible to user
+  scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true) }
+
   # Validations
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20}, presence: true
@@ -37,9 +40,9 @@ class Post < ActiveRecord::Base
 
     update_attribute(:rank, new_rank)
   end
-  
+
   def create_vote
-    user.votes.create(post: self, value: 1)    
+    user.votes.create(post: self, value: 1)
   end
 
   def save_with_initial_vote
@@ -47,5 +50,5 @@ class Post < ActiveRecord::Base
       save
       create_vote
     end
-  end 
+  end
 end
