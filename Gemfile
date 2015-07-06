@@ -43,6 +43,9 @@ gem 'will_paginate', '~> 3.0.5'
 
 gem 'newrelic_rpm'
 
+# Use the Thin webserver in both development and production environments
+gem 'puma'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -77,7 +80,6 @@ group :development, :test do
   gem 'awesome_print'
 
   gem 'factory_girl_rails'
-
 end
 
 group :production do
