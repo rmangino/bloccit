@@ -80,6 +80,9 @@ group :development, :test do
   gem 'awesome_print'
 
   gem 'factory_girl_rails'
+
+  # Required to use Chrome's RailsPanel extension
+  gem 'meta_request'
 end
 
 group :production do
