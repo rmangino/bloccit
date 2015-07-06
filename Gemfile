@@ -74,6 +74,8 @@ group :development, :test do
 
   gem 'awesome_print'
 
+  gem 'factory_girl_rails'
+
 end
 
 group :production do
