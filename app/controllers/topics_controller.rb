@@ -9,7 +9,13 @@ class TopicsController < ApplicationController
   def show
     authorize @topic
     # We'll display the posts associated with this topic
-    @posts = @topic.posts.paginate(page: params[:page]).per_page(100) 
+    #
+    # Use eager loading to pull in the associated user and comments at the same time as posts
+    # http://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations
+    @posts = @topic.posts
+                   .includes(:user)
+                   .includes(:comments)
+                   .paginate(page: params[:page]).per_page(100)
   end
 
   def new
@@ -64,5 +70,5 @@ private
 
   def topic_params
     params.require(:topic).permit(:name, :description, :public)
-  end  
+  end
 end
