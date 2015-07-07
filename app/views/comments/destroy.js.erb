@@ -1,0 +1,13 @@
+<% if @comment.destroyed? %>
+  $('#comment-' +<%= @comment.id %>).hide();
+
+  <% str = pluralize(@post.comments.count, 'Comment')  %>
+
+   <%# Update the total comment count %>
+  $('#js-comments-count').text('<%= "#{str}" %>');
+
+<% else %>
+
+  $('#comment-' +<%= @comment.id %>).prepend("<div class='alert alert-danger'><%= flash[:error] %></div>");
+
+<% end %>

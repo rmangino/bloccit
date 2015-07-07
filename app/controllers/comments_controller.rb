@@ -29,15 +29,18 @@ class CommentsController < ApplicationController
     else
       flash[:error] = "Comment couldn't be deleted"
     end
-    
-    redirect_to [@post.topic, @post]
+
+    respond_to do |format|
+      format.html # normal response
+      format.js   # allows the controller to render an *.js.erb instead
+    end
   end
 
 private
 
   def comment_params
     params.require(:comment).permit(:body)
-  end  
+  end
 
   def find_post
     @post = Post.find(params[:post_id])

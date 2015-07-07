@@ -32,12 +32,8 @@
     <%= render partial: 'favorites/favorite', locals: { post: @post } %>
   </div>
   <hr/>
-  <h3>
-    <% if @comments.count == 0 %>
-      No Comments
-    <% else %>
-      Comments (<%= @comments.count %>)
-    <% end %>
+  <h3 id="js-comments-count">
+    <%= pluralize(@comments.count, 'Comment') %>
   </h3>
 
   <div>
