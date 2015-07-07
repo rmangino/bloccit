@@ -3,15 +3,15 @@ module TestFactories
   include Warden::Test::Helpers
   Warden.test_mode!
 
-  FactoryGirl.define do
-    factory :user do
-      email 'test@example.com'
-      password 'f4k3p455w0rd'
+  # FactoryGirl.define do
+  #   factory :user do
+  #     email 'test@example.com'
+  #     password 'f4k3p455w0rd'
 
-      # if needed
-      # is_active true
-    end
-  end
+  #     # if needed
+  #     # is_active true
+  #   end
+  # end
 
   def associated_post(options={})
     post_options = {
