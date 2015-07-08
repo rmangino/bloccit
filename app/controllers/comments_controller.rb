@@ -3,10 +3,15 @@ class CommentsController < ApplicationController
   # Try to save a new comment
   def create
     find_post
+    @topic = @post.topic
     @comments = @post.comments
 
-    @comment = current_user.comments.build(comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.user = current_user
     @comment.post = @post
+
+    # Used to create the comment form after creating a new comment
+    @new_comment = Comment.new
 
     authorize @comment
 
@@ -16,7 +21,10 @@ class CommentsController < ApplicationController
       flash[:error] = "There was an error saving the comment. Please try again."
     end
 
-    redirect_to [@post.topic, @post]
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def destroy

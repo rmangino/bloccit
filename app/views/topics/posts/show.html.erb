@@ -32,16 +32,18 @@
     <%= render partial: 'favorites/favorite', locals: { post: @post } %>
   </div>
   <hr/>
-  <h3 id="js-comments-count">
+  <h3>
     <%= pluralize(@comments.count, 'Comment') %>
   </h3>
 
-  <div>
+  <div class='js-comments'>
     <%= render partial: 'comments/comment', collection: @comments, locals: { topic: @topic, post: @post } %>
   </div>
 
   <% if policy(@comment).create? %>
     <hr/>
-    <%= render partial: "comments/form", locals: { topic: @topic, post: @post, comment: @comment } %>
+    <div class="new-comment">
+      <%= render partial: "comments/form", locals: { topic: @topic, post: @post, comment: @comment } %>
+    </div>
   <% end %>
 </div>
