@@ -1,7 +1,7 @@
 <% if @comment.valid? %>
 
-  <%# Add this new comment to the top of the existing comments list %>
-  $('.js-comments').prepend("<%= escape_javascript(render(@comment)) %>");
+  <%# Add this new comment to the bottom of the existing comments list %>
+  $('.js-comments').append("<%= escape_javascript(render(@comment)) %>");
 
   <%# Fill the new comment form field with a new (empty) comment. If we don't do %>
   <%# this the old comment text remains in the form field %>
@@ -9,6 +9,7 @@
 
 <% else %>
 
-   $('.new-comment').html("<%= escape_javascript(render partial: 'comments/form', locals: { post: @post, comment: @comment }) %>");
+  <% flash.discard %>
+  $('.new-comment').html("<%= escape_javascript(render partial: 'comments/form', locals: { post: @post, comment: @comment }) %>");
 
 <% end %>
